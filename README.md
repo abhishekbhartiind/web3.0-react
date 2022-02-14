@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+### ZEN WEB3.0
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Basic dApp with Web3 and ReactJS
+[Creating simple NFT project]
 
-## Available Scripts
+Decentralized apps come in all shapes and sizes. We have decentralized market makers, flash loans, crypto games, and simple NFT sites.
 
-In the project directory, you can run:
+Prerequisite
+- ReactJS / NextJS
+- MetaMask
 
-### `npm start`
+Development
+- Web3 Integration
+- Smart Contract
+- Basics of Blockchain
+- Sending simple transactions for minting or buying NFTs
+- Web3 is a tool for connecting to wallets and certain other useful features such as calculating Wei from ETH and ReactJS / NextJS is a framework for   building sites.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+MetaMask
+- It is an easy solution if you want to get started with blockchain or Ethereum wallets.
+- It acts as a browser extension and can easily interact with web3 applications such as OpenSea
+- You cannot buy cryptocurrencies with MetaMask though, you’d have to buy your cryptocurrencies via a broker such as CoinBase/WazirX to be able to use them.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Installation & Configuration
+- Install MetaMask as browser extension
+- It does support most browsers like Chrome and Firefox.
+- Click on “create a new wallet” if you don’t already have one.
+- Enter a password and agree to have read the terms and conditions.
+  [Save the key phrase in any way you can. You cannot access your coins without it!]
+- Some sites that feature Web3 functionality will ask you to log into their site with a popup from your wallet extension.
 
-### `npm test`
+ABI
+- ABI is a representation of our Solidity code in JSON so that Web3 knows what it can call and what to expect from the code.
+- The ABI to add a contract object to our state from which we can call functions.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Getting the ABI is using Remix, an online Solidity IDE and compiler. Add a new file and paste your smart contract code into the editor. Right-click the new file in Remix and click on compile. Go to the compile tab on the left, and click the tiny ABI button to copy your ABI. paste it into a new variable in our code under the states.
 
-### `npm run build`
+# [Calling a contract view function]
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+There are two ways to call contract functions from Web3. It depends on the type of function to know which one to use. For view functions, and functions that do not require gas fees, we can use our new contract state to call
+```
+contract.methods.your_contract_function().call()
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+// State
+const [totalSupply, setTotalSupply] = useState(0)
 
-### `npm run eject`
+// Calling the totalSupply function from our ERC721Enumerable contract
+contract.methods.totalSupply().call().then((_supply) => {
+    // Optionally set it to the state to render it using React
+    setTotalSupply(_supply)
+}).catch((err) => console.log(err))
+```
+# [Calling a contract function that costs gas]
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+A contract can have a payable function. Which is where we can get our payments from if we want to. Other functions such as mint will also cost the user gas fees. These functions need to be called in a different way so that our users can accept the fees and payment.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+We need to request a transaction. This will prompt the user with a popup from MetaMask asking to accept the payment and gas fees. In this case, the payment would be 1 ETH, or 1 MATIC if you’re on Polygon. The price needs to be sent in Wei instead of ETH.
