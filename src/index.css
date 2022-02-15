@@ -13,7 +13,7 @@ body {
 
 main {
   padding-top: 6rem;
-  background: bisque;
+  background: linear-gradient(to right, #8360c3, #2ebf91);
   height: 100vh;
 }
 
@@ -26,8 +26,10 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg,#2d4263,#c84b31);
+  background: transparent;
   padding: 0 2rem;
+  box-shadow: 0 1px 10px rgba(57, 76, 96, 0.15);
+  z-index: 1000;
 }
 
 .main-header h1 {
