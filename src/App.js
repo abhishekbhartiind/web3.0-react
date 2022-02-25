@@ -39,14 +39,6 @@ function App() {
         ) : (
           <Home />
         )}
-        {/* <Card className="login">
-          <button className="button" type="button">
-            Connect
-          </button>
-        </Card>
-        <Card className="home">
-          <h1>Welcome</h1>
-        </Card> */}
       </main>
     </div>
   );
