@@ -5,6 +5,8 @@ import Web3 from "web3";
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
+  const [accountAddress, setAccountAddress] = useState("");
+
   const onLogin = async (provider) => {
     try {
       const web3 = new Web3(provider);
@@ -13,6 +15,7 @@ function App() {
         console.log("Please connect to MetaMask");
       }
       setIsConnected(true);
+      setAccountAddress(accounts[0]);
     } catch (err) {
       console.log(err);
     }
@@ -29,7 +32,11 @@ function App() {
         <nav className="nav">
           <ul>
             <li>Wallet:</li>
-            <li>0x145420D3a0d2D410A690E47fe26F19B76e20E272</li>
+            <li>
+              {accountAddress
+                ? accountAddress
+                : "0x145420D3a0d2D410A690E47fe26F19B76e20E272"}
+            </li>
           </ul>
         </nav>
       </header>
